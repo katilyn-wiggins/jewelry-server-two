@@ -1,5 +1,5 @@
-const client = require('../lib/client');
-const { getEmoji } = require('../lib/emoji.js');
+const client=require('../lib/client');
+const {getEmoji}=require('../lib/emoji.js');
 
 // async/await needs to run in a function
 run();
@@ -19,6 +19,7 @@ async function run() {
                 );           
                 CREATE TABLE jewelry (
                     id SERIAL PRIMARY KEY NOT NULL,
+                    image VARCHAR(512),
                     name VARCHAR(512) NOT NULL,
                     description VARCHAR(512) NOT NULL,
                     price INTEGER NOT NULL,
