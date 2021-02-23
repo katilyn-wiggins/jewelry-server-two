@@ -200,7 +200,7 @@ describe('app routes', () => {
         .expect('Content-Type', /json/)
         .expect(200);
 
-      expect(changedPiece.body[0]).toEqual(expectedItem);
+      expect(changedPiece.body).toEqual(expectedItem);
     });
 
     //DELETE
