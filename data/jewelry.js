@@ -1,47 +1,47 @@
-module.exports=[
+module.exports = [
   {
-    image: 'http://placekitten.com/g/200/300',
     name: 'ember',
+    image: 'http://placekitten.com/g/200/300',
     description: 'antique teacup piece set in .925 silver, silver chain included',
     price: 60,
     category: 'necklace',
     made_of_silver: true
   },
   {
-    image: 'http://placekitten.com/g/200/300',
     name: 'imelda',
+    image: 'http://placekitten.com/g/200/300',
     description: 'antique teacup piece set in .925 silver, silver chain included',
     price: 60,
     category: 'necklace',
     made_of_silver: true
   },
   {
-    image: 'http://placekitten.com/g/200/300',
     name: 'constantine',
+    image: 'http://placekitten.com/g/200/300',
     description: 'turquoise set in sterling silver on silver band',
     price: 75,
     category: 'ring',
     made_of_silver: true
   },
   {
-    image: 'http://placekitten.com/g/200/300',
     name: 'mary',
+    image: 'http://placekitten.com/g/200/300',
     description: 'antique teacup peice set in .925 silver, silver chain included',
     price: 60,
     category: 'necklace',
     made_of_silver: true
   },
   {
-    image: 'http://placekitten.com/g/200/300',
     name: 'esther',
+    image: 'http://placekitten.com/g/200/300',
     description: 'antique teacup piece set in .925 silver, silver chain included',
     price: 60,
     category: 'necklace',
     made_of_silver: true
   },
   {
-    image: 'http://placekitten.com/g/200/300',
     name: 'dianna',
+    image: 'http://placekitten.com/g/200/300',
     description: 'antique teacup peice set in .925 silver, silver chain included',
     price: 60,
     category: 'necklace',
