@@ -1,17 +1,18 @@
-const client=require('../lib/client');
+const client = require('../lib/client');
 // import our seed data:
-const jewelry=require('./jewelry.js');
-const usersData=require('./users.js');
-const {getEmoji}=require('../lib/emoji.js');
+const jewelry = require('./jewelry.js');
+const kindsData = require('./kindsData.js');
+const usersData = require('./users.js');
+const {getEmoji} = require('../lib/emoji.js');
 
 run();
 
-async function run() {
+async function run () {
 
   try {
     await client.connect();
 
-    const users=await Promise.all(
+    const users = await Promise.all(
       usersData.map(user => {
         return client.query(`
                       INSERT INTO users (email, hash)
@@ -22,7 +23,20 @@ async function run() {
       })
     );
 
-    const user=users[0].rows[0];
+    const user = users[0].rows[0];
+
+    const kinds = await Promise.all(
+      kindsData.map(kind => {
+        return client.query(`
+                      INSERT INTO kinds (name)
+                      VALUES ($1)
+                      RETURNING *;
+                  `,
+          [kind.name]);
+      })
+    );
+
+    const kind = kinds[0].rows[0];
 
     await Promise.all(
       jewelry.map(jewel => {

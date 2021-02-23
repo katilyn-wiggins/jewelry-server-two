@@ -16,7 +16,11 @@ async function run () {
                     id SERIAL PRIMARY KEY,
                     email VARCHAR(256) NOT NULL,
                     hash VARCHAR(512) NOT NULL
-                );           
+                );
+                CREATE TABLE kinds (
+                  id SERIAL PRIMARY KEY,
+                  name VARCHAR(256) NOT NULL
+                )           
                 CREATE TABLE jewelry (
                     id SERIAL PRIMARY KEY NOT NULL,
                     name VARCHAR(512) NOT NULL,
