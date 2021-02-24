@@ -169,9 +169,14 @@ describe('app routes', () => {
         .expect('Content-Type', /json/)
         .expect(200);
 
+      const getExpectation = {
+        ...expectedPiece,
+        category: 'ring'
+      };
+
       const larry = allPieces.body.find(piece => piece.name === 'larry');
 
-      expect(larry).toEqual(expectedPiece);
+      expect(larry).toEqual(getExpectation);
     });
 
     //PUT
