@@ -36,15 +36,15 @@ async function run () {
       })
     );
 
-    const kind = kinds[0].rows[0];
+    // const kindsArray = responses.map(({rows}) => rows[0]);
 
     await Promise.all(
       jewelry.map(jewel => {
         return client.query(`
-                    INSERT INTO jewelry (name, image, description, price, category, made_of_silver, owner_id)
+                    INSERT INTO jewelry (name, image, description, price, category_id, made_of_silver, owner_id)
                     VALUES ($1, $2, $3, $4, $5, $6, $7);
                 `,
-          [jewel.name, jewel.image, jewel.description, jewel.price, jewel.category, jewel.made_of_silver, user.id]);
+          [jewel.name, jewel.image, jewel.description, jewel.price, jewel.category_id, jewel.made_of_silver, user.id]);
       })
     );
 

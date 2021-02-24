@@ -1,6 +1,6 @@
 module.exports = [
     {
-        category: 'necklace',
+        name: 'necklace',
     },
     {
         name: 'ring',

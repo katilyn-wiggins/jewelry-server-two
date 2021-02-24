@@ -18,19 +18,19 @@ async function run () {
                     hash VARCHAR(512) NOT NULL
                 );
                 CREATE TABLE kinds (
-                  id SERIAL PRIMARY KEY,
+                  id SERIAL PRIMARY KEY NOT NULL,
                   name VARCHAR(256) NOT NULL
-                )           
+                ); 
                 CREATE TABLE jewelry (
-                    id SERIAL PRIMARY KEY NOT NULL,
-                    name VARCHAR(512) NOT NULL,
-                    image VARCHAR(512),
-                    description VARCHAR(512) NOT NULL,
-                    price INTEGER NOT NULL,
-                    category VARCHAR(512) NOT NULL,
-                    made_of_silver BOOLEAN NOT NULL, 
-                    owner_id INTEGER NOT NULL REFERENCES users(id)
-            );
+                  id SERIAL PRIMARY KEY NOT NULL,
+                  name VARCHAR(512) NOT NULL,
+                  image VARCHAR(512),
+                  description VARCHAR(512) NOT NULL,
+                  price INTEGER NOT NULL,
+                  category_id INTEGER NOT NULL,
+                  made_of_silver BOOLEAN NOT NULL, 
+                  owner_id INTEGER NOT NULL REFERENCES users(id)
+                );
         `);
 
     console.log('create tables complete', getEmoji(), getEmoji(), getEmoji());
