@@ -1,15 +1,16 @@
-const client=require('../lib/client');
-const {getEmoji}=require('../lib/emoji.js');
+const client = require('../lib/client');
+const {getEmoji} = require('../lib/emoji.js');
 
 run();
 
-async function run() {
+async function run () {
 
   try {
     await client.connect();
 
     await client.query(`
             DROP TABLE IF EXISTS users CASCADE;
+            DROP TABLE IF EXISTS kinds CASCADE;
             DROP TABLE IF EXISTS jewelry;
         `);
 

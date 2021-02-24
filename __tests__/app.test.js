@@ -35,44 +35,15 @@ describe('app routes', () => {
 
       const expectation = [
         {
-          "id": 1,
-          "name": "ember",
-          "image": "http://placekitten.com/g/200/300",
-          "description": "antique teacup piece set in .925 silver, silver chain included",
-          "price": 60,
-          "category": "necklace",
-          "made_of_silver": true,
-          "owner_id": 1
-        },
-        {
-          "id": 2,
-          "name": "imelda",
-          "image": "http://placekitten.com/g/200/300",
-          "description": "antique teacup piece set in .925 silver, silver chain included",
-          "price": 60,
-          "category": "necklace",
-          "made_of_silver": true,
-          "owner_id": 1
-        },
-        {
-          "id": 3,
-          "name": "constantine",
-          "image": "http://placekitten.com/g/200/300",
-          "description": "turquoise set in sterling silver on silver band",
-          "price": 75,
-          "category": "ring",
-          "made_of_silver": true,
-          "owner_id": 1
-        },
-        {
-          "id": 4,
-          "name": "mary",
+          "id": 6,
+          "name": "dianna",
           "image": "http://placekitten.com/g/200/300",
           "description": "antique teacup peice set in .925 silver, silver chain included",
           "price": 60,
-          "category": "necklace",
+          "category_id": 1,
           "made_of_silver": true,
-          "owner_id": 1
+          "owner_id": 1,
+          "category": "necklace"
         },
         {
           "id": 5,
@@ -80,21 +51,55 @@ describe('app routes', () => {
           "image": "http://placekitten.com/g/200/300",
           "description": "antique teacup piece set in .925 silver, silver chain included",
           "price": 60,
-          "category": "necklace",
+          "category_id": 1,
           "made_of_silver": true,
-          "owner_id": 1
+          "owner_id": 1,
+          "category": "necklace"
         },
         {
-          "id": 6,
-          "name": "dianna",
+          "id": 4,
+          "name": "mary",
           "image": "http://placekitten.com/g/200/300",
           "description": "antique teacup peice set in .925 silver, silver chain included",
           "price": 60,
-          "category": "necklace",
+          "category_id": 1,
           "made_of_silver": true,
-          "owner_id": 1
+          "owner_id": 1,
+          "category": "necklace"
+        },
+        {
+          "id": 2,
+          "name": "imelda",
+          "image": "http://placekitten.com/g/200/300",
+          "description": "antique teacup piece set in .925 silver, silver chain included",
+          "price": 60,
+          "category_id": 1,
+          "made_of_silver": true,
+          "owner_id": 1,
+          "category": "necklace"
+        },
+        {
+          "id": 1,
+          "name": "ember",
+          "image": "http://placekitten.com/g/200/300",
+          "description": "antique teacup piece set in .925 silver, silver chain included",
+          "price": 60,
+          "category_id": 1,
+          "made_of_silver": true,
+          "owner_id": 1,
+          "category": "necklace"
+        },
+        {
+          "id": 3,
+          "name": "constantine",
+          "image": "http://placekitten.com/g/200/300",
+          "description": "turquoise set in sterling silver on silver band",
+          "price": 75,
+          "category_id": 2,
+          "made_of_silver": true,
+          "owner_id": 1,
+          "category": 'ring',
         }
-
       ];
 
       const data = await fakeRequest(app)
@@ -102,24 +107,24 @@ describe('app routes', () => {
         .expect('Content-Type', /json/)
         .expect(200);
 
-      expect(data.body).toEqual(expectation);
+      expect(data.body).toEqual(expect.arrayContaining(expectation));
     });
 
 
     test('returns a single jewelry item with matching id', async () => {
 
-      const expectation = [
-        {
-          "id": 4,
-          "name": "mary",
-          "image": "http://placekitten.com/g/200/300",
-          "description": "antique teacup peice set in .925 silver, silver chain included",
-          "price": 60,
-          "category": "necklace",
-          "made_of_silver": true,
-          "owner_id": 1
-        }
-      ];
+      const expectation =
+      {
+        "id": 4,
+        "name": "mary",
+        "image": "http://placekitten.com/g/200/300",
+        "description": "antique teacup peice set in .925 silver, silver chain included",
+        "price": 60,
+        "category_id": 1,
+        "made_of_silver": true,
+        "owner_id": 1,
+        "category": "necklace"
+      };
 
       const data = await fakeRequest(app)
         .get('/jewelry/4')
@@ -139,7 +144,7 @@ describe('app routes', () => {
         image: 'http://placekitten.com/g/200/200',
         description: 'a mooooooood ring',
         price: 20,
-        category: 'ring',
+        category_id: 2,
         made_of_silver: false,
         owner_id: 1
       };
@@ -148,9 +153,8 @@ describe('app routes', () => {
         ...newPiece,
         id: 7,
         owner_id: 1,
-
-      }
-        ;
+        // category: 'ring'
+      };
 
       const data = await fakeRequest(app)
         .post('/jewelry')
@@ -165,9 +169,14 @@ describe('app routes', () => {
         .expect('Content-Type', /json/)
         .expect(200);
 
-      const larry = allPieces.body.find(piece => piece.name === 'larry');
+      const getExpectation = {
+        ...expectedPiece,
+        category: 'ring'
+      };
 
-      expect(larry).toEqual(expectedPiece);
+      // const larry = allPieces.body.find(piece => piece.name === 'larry');
+      // expect(larry).toEqual(getExpectation);
+      expect(allPieces.body).toContainEqual(getExpectation);
     });
 
     //PUT
@@ -179,6 +188,7 @@ describe('app routes', () => {
         description: "choker",
         price: 10000,
         category: "necklace",
+        category_id: 1,
         made_of_silver: true,
       };
 
@@ -200,7 +210,7 @@ describe('app routes', () => {
         .expect('Content-Type', /json/)
         .expect(200);
 
-      expect(changedPiece.body[0]).toEqual(expectedItem);
+      expect(changedPiece.body).toEqual(expectedItem);
     });
 
     //DELETE
@@ -211,7 +221,7 @@ describe('app routes', () => {
         image: "http://placekitten.com/g/200/300",
         description: "antique teacup peice set in .925 silver, silver chain included",
         price: 60,
-        category: "necklace",
+        category_id: 1,
         made_of_silver: true,
       }
 
@@ -232,7 +242,7 @@ describe('app routes', () => {
         .expect('Content-Type', /json/)
         .expect(200);
 
-      expect(noMorePiece.body).toEqual([]);
+      expect(noMorePiece.body).toEqual("");
     });
 
   });
@@ -245,7 +255,7 @@ describe('app routes', () => {
       image: 'http://placekitten.com/g/200/200',
       description: 'a mooooooood ring',
       price: 20,
-      category: 'ring',
+      category_id: 2,
       made_of_silver: false,
       owner_id: 1
     };
