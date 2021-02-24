@@ -107,7 +107,7 @@ describe('app routes', () => {
         .expect('Content-Type', /json/)
         .expect(200);
 
-      expect(data.body).toEqual(expectation);
+      expect(data.body).toEqual(expect.arrayContaining(expectation));
     });
 
 
@@ -174,9 +174,9 @@ describe('app routes', () => {
         category: 'ring'
       };
 
-      const larry = allPieces.body.find(piece => piece.name === 'larry');
-
-      expect(larry).toEqual(getExpectation);
+      // const larry = allPieces.body.find(piece => piece.name === 'larry');
+      // expect(larry).toEqual(getExpectation);
+      expect(allPieces.body).toContainEqual(getExpectation);
     });
 
     //PUT
