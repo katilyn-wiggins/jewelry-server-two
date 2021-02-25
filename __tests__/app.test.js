@@ -110,6 +110,36 @@ describe('app routes', () => {
       expect(data.body).toEqual(expect.arrayContaining(expectation));
     });
 
+    test('returns categories or kinds', async () => {
+
+      const expectation = [
+        {
+          id: 1,
+          name: 'necklace',
+        },
+        {
+          id: 2,
+          name: 'ring',
+        },
+        {
+          id: 3,
+          name: 'anklet',
+        },
+        {
+          id: 4,
+          name: 'bracelet',
+        }
+      ];
+
+      const data = await fakeRequest(app)
+        .get('/kinds')
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      expect(data.body).toEqual(expect.arrayContaining(expectation));
+    });
+
+
 
     test('returns a single jewelry item with matching id', async () => {
 
