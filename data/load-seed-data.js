@@ -1,12 +1,13 @@
 const client = require('../lib/client');
 // import our seed data:
-const animals = require('./animals.js');
+const jewelry = require('./jewelry.js');
+const kindsData = require('./kindsData.js');
 const usersData = require('./users.js');
-const { getEmoji } = require('../lib/emoji.js');
+const {getEmoji} = require('../lib/emoji.js');
 
 run();
 
-async function run() {
+async function run () {
 
   try {
     await client.connect();
@@ -18,30 +19,43 @@ async function run() {
                       VALUES ($1, $2)
                       RETURNING *;
                   `,
-        [user.email, user.hash]);
+          [user.email, user.hash]);
       })
     );
-      
+
     const user = users[0].rows[0];
 
-    await Promise.all(
-      animals.map(animal => {
+    const kinds = await Promise.all(
+      kindsData.map(kind => {
         return client.query(`
-                    INSERT INTO animals (name, cool_factor, owner_id)
-                    VALUES ($1, $2, $3);
-                `,
-        [animal.name, animal.cool_factor, user.id]);
+                      INSERT INTO kinds (name)
+                      VALUES ($1)
+                      RETURNING *;
+                  `,
+          [kind.name]);
       })
     );
-    
+
+    // const kindsArray = responses.map(({rows}) => rows[0]);
+
+    await Promise.all(
+      jewelry.map(jewel => {
+        return client.query(`
+                    INSERT INTO jewelry (name, image, description, price, category_id, made_of_silver, owner_id)
+                    VALUES ($1, $2, $3, $4, $5, $6, $7);
+                `,
+          [jewel.name, jewel.image, jewel.description, jewel.price, jewel.category_id, jewel.made_of_silver, user.id]);
+      })
+    );
+
 
     console.log('seed data load complete', getEmoji(), getEmoji(), getEmoji());
   }
-  catch(err) {
+  catch (err) {
     console.log(err);
   }
   finally {
     client.end();
   }
-    
+
 }
